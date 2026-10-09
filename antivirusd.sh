@@ -25,10 +25,21 @@ fi
 scan_files(){
 for file in "$dir"/*
 do 
+
+
+
+
 if [ -f "$file" ]
 then
 	filename=$(basename "$file")
 	is_bad=0
+	
+	if grep -Fxq "$filename" whitelist.txt
+	echo "in the white list"
+	then
+		continue
+	fi
+	
 	case "$filename" in *.exe|*.bat|*.vbs|*.scr|*.ps1)
 		is_bad=1
 		;;
