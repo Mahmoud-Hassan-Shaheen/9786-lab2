@@ -107,6 +107,7 @@ do
 	then
 		cp "$chosenFile" "$dir"
 		rm "$chosenFile"
+		echo "$filename" >> whitelist.txt
 		echo "Restored $filename to $dir."
 	elif [ $option_num = "2" ]
 	then

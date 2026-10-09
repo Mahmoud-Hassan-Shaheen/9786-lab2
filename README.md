@@ -67,6 +67,12 @@ To schedule the scan at **12:31 AM on the third Friday of every month**, add the
 - **Edit or remove a job:** Run `crontab -e` and modify or delete the corresponding entry.
 - **Review execution logs:** Check `antivirus-cron.log` in the project directory.
 
+## 7-whitelist algorithm 
+- the whitelist.txt stored in the project directory.
+- when the user restore a deleted file from the quarantine files the file name stores in the whitelist.txt file 
+- in the antivirusd.sh when the scan starts it checks first if the file name in the whitelist if No do the normal process if yes it skip this file even if the file extension or content matches the malicious rules.
+- so in the end it like a memory we store the restored files so we don't delete it agin.
+
 
 
 
