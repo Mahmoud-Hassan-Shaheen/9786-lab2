@@ -30,4 +30,44 @@ they are both inside the `antivirusd.sh` script in the `scan_files` function:
 * **flagged extensions:** in the `case` statement.
 * **flagged extensions:** in the `grep` command.
 
+## 5-Automated Scanning with cron
+the `antivirus-cron.sh` automates the scanning using cron. and each scan it moves any detected bad file to the quarantine directory.
+** Run the scan every minute at second 23**
+**1** open the treminal and edit the current user's crontab by writing this:
+```bash
+crontab -e
+```
+**2** write this to schedule the scan every minute at second 23
+```cron
+* * * * * sleep 23; cd /home/labzero/Desktop/project1_1 && ./antivirus-cron.sh /home/labzero/Desktop/project1_1/my_dir /home/labzero/Desktop/project1_1/malicious_dir
+```
+**so**
+* -(* * * * * ): run the job (scan) every minute.
+* -(sleep 23) : delays the run 23 seconds to start there not at the start of the minute.
+**3** saveing the crontab and verify the scheduled run:
+```bash
+crontab -1
+```
+
+## 6-Run the Scan on the Third Friday of Every Month
+
+To schedule the scan at **12:31 AM on the third Friday of every month**, add the following entry to the crontab:
+
+```cron
+31 0 * * 5 [ "$(date +\%d)" -ge 15 ] && [ "$(date +\%d)" -le 21 ] && cd /home/labzero/Desktop/project1_1 && bash antivirus-cron.sh /home/labzero/Desktop/project1_1/my_dir /home/labzero/Desktop/project1_1/malicious_dir >> /home/labzero/Desktop/project1_1/antivirus-cron.log 2>&1
+```
+
+- `31 0 * * 5`: Runs the job every Friday at 12:31 AM.
+- `date +\%d`: Gets the current day of the month.
+- `-ge 15` and `-le 21`: Ensure that the job runs only between the 15th and 21st, identifying the third Friday.
+
+** how to Managing the Cron Job **
+
+- **View scheduled jobs:** Run `crontab -l`.
+- **Edit or remove a job:** Run `crontab -e` and modify or delete the corresponding entry.
+- **Review execution logs:** Check `antivirus-cron.log` in the project directory.
+
+
+
+
   

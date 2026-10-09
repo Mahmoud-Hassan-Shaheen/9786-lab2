@@ -10,3 +10,5 @@ runpart1: setup
 
 runpart2: setup
 	bash restore.sh $(dir) $(malicious)
+runpart3: setup
+	bash antivirus-cron.sh $(dir) $(malicious)
